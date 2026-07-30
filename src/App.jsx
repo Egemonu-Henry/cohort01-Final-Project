@@ -15,6 +15,11 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  //New Feature
+  const [trending, setTrending] = useState([]);
+  const [trendingLoading, setTrendingLoading] = useState(false);
+  const [trendingError, setTrendingError] = useState(null);
+
   // Load watchlist from localStorage on mount
   useEffect(() => {
     try {
@@ -32,6 +37,31 @@ function App() {
     localStorage.setItem("movieWatchlist", JSON.stringify(watchlist));
   }, [watchlist]);
 
+  // Fetch trending movies once on mount
+  useEffect(() => {
+  async function fetchTrending() {
+    setTrendingLoading(true);
+    setTrendingError(null);
+    try {
+      const response = await fetch(
+        `${BASE_URL}/trending/movie/day?api_key=${API_KEY}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setTrending(data.results || []);
+    } catch (err) {
+      setTrendingError(err.message);
+    } finally {
+      setTrendingLoading(false);
+    }
+  }
+
+  fetchTrending();
+  }, []);
   // Search movies from TMDB API with debounce
   useEffect(() => {
   if (!query.trim()) {
@@ -112,6 +142,33 @@ function App() {
       </header>
 
       <main>
+        {/* Trending Section */}
+        {!query.trim() && (
+          <section className="trending-section">
+            <h2>Trending Today</h2>
+
+            {trendingLoading && (
+              <p className="status-message">Loading trending movies...</p>
+            )}
+            {trendingError && (
+              <p className="error-message">Error: {trendingError}</p>
+            )}
+
+            {!trendingLoading && !trendingError && (
+              <div className="movie-grid">
+                {trending.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    actionLabel="+ Add to Watchlist"
+                    onAction={() => addToWatchlist(movie)}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
         {/* Search Section */}
         <section className="search-section">
           <h2>Search Movies</h2>

@@ -23,6 +23,18 @@
   font-size: 1rem;
 }
 
+/* Trending Section */
+.trending-section {
+  padding: 30px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.trending-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
 /* Search Section */
 .search-section {
   padding: 30px 0;
