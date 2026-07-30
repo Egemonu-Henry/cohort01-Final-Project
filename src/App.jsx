@@ -65,6 +65,8 @@ function App() {
   }
 
   function addToWatchlist(movie) {
+    if (watchlist.some((m) => m.id === movie.id)) return;
+
     const newMovie = {
       id: movie.id,
       title: movie.title,

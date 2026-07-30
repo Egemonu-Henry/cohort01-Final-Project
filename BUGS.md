@@ -22,3 +22,9 @@
     - Where the bug is: App.jsx (Filter logic)
     - Why is it broken: The filter conditions for watched and unwatched movies were reversed.
     - How I fixed it: Corrected the filter conditions.
+
+5.  Bug 5: Duplicate movies can be added to the watchlist
+    - What is broken: The same movie can be added multiple times.
+    - Where the bug is: App.jsx (addToWatchlist function)
+    - Why is it broken: There was no check to determine if the movie already existed in the watchlist.
+    - How I fixed it: Introduce a condition to Checked whether the movie already exists before adding it.
