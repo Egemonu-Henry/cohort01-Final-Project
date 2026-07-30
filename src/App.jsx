@@ -29,7 +29,7 @@ function App() {
 
   // Save watchlist to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("myWatchlist", JSON.stringify(watchlist));
+    localStorage.setItem("movieWatchlist", JSON.stringify(watchlist));
   }, [watchlist]);
 
   // Search movies from TMDB API with debounce
@@ -43,7 +43,7 @@ function App() {
     const timerId = setTimeout(() => {
       fetchMovies(query);
     }, 500);
-  }, []);
+  }, [query]);
 
   async function fetchMovies(searchQuery) {
     try {
@@ -90,8 +90,8 @@ function App() {
   }
 
   const filteredWatchlist = watchlist.filter((m) => {
-    if (filter === "watched") return !m.watched;
-    if (filter === "unwatched") return m.watched;
+    if (filter === "watched") return m.watched;
+    if (filter === "unwatched") return !m.watched;
     return true;
   });
 
