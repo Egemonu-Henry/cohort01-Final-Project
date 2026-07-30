@@ -40,3 +40,21 @@
     - Where the bug is: fetchMovies() function in App.jsx
     - Why is it broken: The error state was never reset before making a new API request.
     - How I fixed it: Cleared the error state before fetching new data ["setError(null)"];.
+
+8. Bug 8: Search results remain after clearing the search input
+    - What is broken: Previously searched movies remain visible after deleting the search text.
+    - Where the bug is: useEffect in App.jsx
+    - Why is it broken: The search results were not cleared when the search query wad deleted.
+    - How I fixed it: Cleared the search results when the input is empty.
+
+9. Bug 9: Application fails if the API key is missing
+    - What is broken: Movie searches fail when the TMDB API key is not configured.
+    - Where the bug is: fetchMovies() in App.jsx
+    - Why is it broken: The application attempts to make API requests using an undefined API key.
+    - How I fixed it: Checked whether the API key exists before making the request.
+
+10. Bug 10: Console logs outdated watchlist data
+    - What is broken: The console displays the previous watchlist instead of the updated one.
+    - Where the bug is: addToWatchlist() function
+    - Why is it broken: React state updates are asynchronous, so the state variable is not updated immediately after calling setWatchlist().
+    - How I fixed it: Logged the updated array instead of the state variable.

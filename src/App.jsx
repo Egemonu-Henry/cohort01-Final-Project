@@ -95,7 +95,7 @@ function App() {
       m.id === movieId ? { ...m, watched: !m.watched } : m
     );
     setWatchlist(updated);
-    console.log("Toggled movie. Current list:", watchlist);
+    console.log("Toggled movie. Current list:", updated);
   }
 
   const filteredWatchlist = watchlist.filter((m) => {
