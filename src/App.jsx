@@ -34,18 +34,25 @@ function App() {
 
   // Search movies from TMDB API with debounce
   useEffect(() => {
-    if (!query.trim()) {
-      return;
-    }
-
-    setLoading(true);
-
-    const timerId = setTimeout(() => {
-      fetchMovies(query);
-    }, 500);
-  }, [query]);
+  if (!query.trim()) {
+    setSearchResults([]);
+    return;
+  }
+  setLoading(true);
+  const timerId = setTimeout(() => {
+    fetchMovies(query);
+  }, 500);
+  return () => clearTimeout(timerId);
+}, [query]);
 
   async function fetchMovies(searchQuery) {
+    setError(null);
+    if (!API_KEY) {
+    setError("TMDB API key is missing.");
+    setLoading(false);
+    return;
+    }
+
     try {
       const response = await fetch(
         `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(searchQuery)}`

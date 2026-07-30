@@ -28,3 +28,15 @@
     - Where the bug is: App.jsx (addToWatchlist function)
     - Why is it broken: There was no check to determine if the movie already existed in the watchlist.
     - How I fixed it: Introduce a condition to Checked whether the movie already exists before adding it.
+
+6. Bug 6: Multiple API requests are made while typing
+    - What is broken: Several search requests are sent when typing quickly.
+    - Where the bug is: App.jsx (useEffect debounce)
+    - Why is it broken: The timeout created by setTimeout() was never cleared.
+    - How I fixed it: Added a cleanup function to cancel the previous timeout before creating a new one.
+
+7. Bug 7: Error message remains after a successful search
+    - What is broken: An old error message continues to display even after a successful search.
+    - Where the bug is: fetchMovies() function in App.jsx
+    - Why is it broken: The error state was never reset before making a new API request.
+    - How I fixed it: Cleared the error state before fetching new data ["setError(null)"];.
