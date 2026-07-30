@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useState } from "react";
 
 import MovieCard from "./MovieCard";
 import "./App.css";
